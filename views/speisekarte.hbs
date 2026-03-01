@@ -1,0 +1,76 @@
+<div class="min-h-screen pb-20">
+
+    <div class="border-b border-gray-800 pt-12 pb-8 px-6 text-center">
+        <h1 class="text-4xl font-bold">Unsere Speisekarte</h1>
+    </div>
+    <!-- sticky top-0: leiste bleibt oben am bildschirmrand "kleben"-->
+    <div class="sticky top-0 z-30 border-none bg-[#242424] py-4 mb-8">
+        <div class="container mx-auto">
+
+            <a href="speisekarte"
+               class="btn btn-sm rounded-full border-none {{#unless currentCategory}}bg-[#C23616] text-gray-300 hover:bg-[#333]{{/unless}}">
+                Alle
+            </a>
+
+            {{#each categories}}
+                <a href="/speisekarte?category={{this}}" class="btn btn-sm rounded-full border-none capitalize
+                {{#if (eq ../currentCategory this)}}
+                    bg-[#C23616] text-white shadow-lg shadow-red-900/20
+                {{else}}
+                    bg-[#242424] text-gray-300 hover:text-white hover:bg-[#333]
+                {{/if}}">
+                {{this}}
+                </a>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+            {{#each items}}
+                <div class="group relative bg-[#242424] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl
+                            transition-all duration-300 hover:translate-y-1 border-none">
+
+                    <div class="relative h-48 w-full overflow-hidden bg-gray-800">
+                        <img src="{{this.imageuri}}" alt="{{this.name}}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+                        <div class="absolute top-3 right-3 bg-[#1a1a1a]/80 backdrop-blur-md px-3 rounded-full border border-gray-700">
+                            <span class="text-white font-bold">{{this.formattedPrice}}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-white leading-tight">{{this.name}}</h3>
+                        </div>
+
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">
+                            {{this.description}}
+                        </p>
+
+                        <div class="flex items-center justify-between gap-4 mt-auto">
+
+                            {{#if @root.user}}
+                                <form action="/basket/addItem" method="POST" class="w-full">
+                                    <input type="hidden" name="productId" value="{{this.id}}">
+                                    <input type="hidden" name="returnCategory" value="{{@root.currentCategory}}">
+                                    <button type="submit" class="btn btn-block bg-[#C23616] hover:bg-[#a02b11] border-none text-white rounded-xl
+                                     shadow-lg shadow-red-900/10 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                                    </button>
+                                </form>
+                                {{else}}
+                                    <a href="/login" class="btn btn-block btn-outline border-gray-600 text-gray-400
+                                       hover:text-white rounded-xl">
+                                        Login zum Bestellen
+                                    </a>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
