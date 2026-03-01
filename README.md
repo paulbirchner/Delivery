@@ -2,7 +2,7 @@
 
 Eine interaktive Full-Stack Webanwendung für einen fiktiven Pizza-Lieferservice. Das Projekt umfasst ein responsives Frontend, ein dynamisches Backend mit Session-basiertem Warenkorb und eine Anbindung an eine relationale Datenbank.
 
-> **Hinweis:** Dieses Projekt habe ich im Rahmen meines Informatik-Studiums (3. Semester) entwickelt, um meine praktischen Fähigkeiten in der Full-Stack Web-Entwicklung (Node.js, Express, SQL) und modernen CSS-Frameworks (Tailwind) zu vertiefen.
+> **Hinweis:** Dieses Projekt habe ich im Rahmen meines Informatik-Studiums (2. Semester) entwickelt, um meine praktischen Fähigkeiten in der Full-Stack Web-Entwicklung (Node.js, Express, SQL) und modernen CSS-Frameworks (Tailwind) zu vertiefen.
 
 ## ✨ Features
 
