@@ -1,0 +1,53 @@
+<div class="p-3">
+    <form class="p-2" action="/admin/bestellungen" method="GET">
+        <div class="join w-full">
+            <input type="text" name="search" class="input input-bordered join-item w-full text-gray-400 bg-[#121212]" placeholder="Kunde" value="{{searchQuery}}"/>
+            <button type="submit" class="btn btn-primary join-item text-white">Search</button>
+        </div>
+    </form>
+
+    {{#each openOrders}}
+        <div class="grid grid-cols-4 border-none p-2 gap-x-3 bg-[#242424] rounded-lg my-3">
+
+            <div>
+                <div class="h-48 w-full rounded-lg" id="map-{{this.id}}"></div>
+
+                <script>
+                    var map = L.map('map-{{this.id}}').setView([{{this.lat}}, {{this.lon}}], 15);
+
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+
+                    var marker = L.marker([{{this.lat}}, {{this.lon}}]).addTo(map);
+                </script>
+            </div>
+
+
+            <div>
+                <h2>Bestellnummer: {{this.id}}</h2>
+                <p class="text-gray-400">Kunde: {{this.firstname}} {{this.lastname}}</p>
+            </div>
+
+            <div >
+                <ul>
+                    {{#each items}}
+                        <li>{{this.quantity}}x {{this.name}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            <div class="flex justify-center items-center">
+                <form class="h-20 w-20" action="/admin/complete-order" method="post">
+                    <button class="justify-center w-full btn btn-success text-white">
+                        <input type="hidden" name="orderId" value="{{this.id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    {{/each}}
+</div>

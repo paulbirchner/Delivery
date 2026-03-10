@@ -1,0 +1,105 @@
+<div class="min-h-screen font-body text-gray-300 pb-20">
+
+    <div class="border-none pt-10 pb-8 px-6 mb-8">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="text-3xl font-bold text-white mb-2 md:text-4xl">Dein Warenkorb</h1>
+            <p class="text-gray-400">Überprüfe deine Auswahl, bevor du deine Bestellung abschickst</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto max-w-6xl px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-4">
+
+                <div class="bg-[#242424] rounded-2xl border-none overflow-hidden">
+                    <div class="p-6 space-y-6">
+
+                        {{#each basket}}
+
+                            <div class="grid grid-cols-6 gap-4 pb-6 ">
+
+                                <div class="w-20 h-20 shrink-0 bg-gray-800 rounded-lg overflow-hidden">
+                                    <img src="/{{this.imageuri}}" alt="{{this.name}}"
+                                    class="w-full h-full object-cover">
+                                </div>
+
+                                <div class="col-span-3 text-center sm:text-left">
+                                    <h3 class="text-white font-bold text-lg">{{this.name}}</h3>
+                                    <p class="text-sm text-gray-500">{{this.description}}</p>
+                                </div>
+
+                                <div class="flex items-center gap-6">
+
+                                    <div class="flex items-center gap-2 bg-[#1a1a1a] rounded-lg p-1 border border-gray-700">
+                                        <span class="text-xs font-bold text-gray-400 px-2">Anzahl: {{this.quantity}}</span>
+                                    </div>
+
+                                    <div class="text-right w-20">
+                                        <span class="block text-white font-bold">{{this.formattedPrice}}</span>
+                                    </div>
+
+                                    <form action="/basket/removeItem" method="POST">
+                                        <input type="hidden" name="productId" value="{{this.id}}">
+                                        <button type="submit" class="btn btn-ghost btn-sm btn-circle text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {{/each}}
+
+                    </div>
+                </div>
+
+                <a href="/speisekarte" class="inline-flex items-center gap-2 text-gray-400 hover:text-[#C23616] transition-colors mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                    <span>Zurück zur Speisekarte</span>
+                </a>
+
+        </div>
+
+
+            <div class="lg:col-span-1">
+                <div class="bg-[#242424] rounded-2xl p-6 border-none sticky top-24 shadow-xl">
+                    <h3 class="text-white font-bold text-xl mb-6">Zusammenfassung</h3>
+
+                    <div class="mb-6 p-4 rounded-xl border-none">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Lieferadresse</span>
+                        </div>
+                        <p class="text-white text-sm font-medium">{{user.street}}</p>
+                        <p class="text-gray-400 text-sm">{{user.zip}} {{user.city}}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-8">
+                        <span class="text-white font-bold text-lg">Gesamtsumme</span>
+                        <span class="text-[#C23616] font-bold text-2xl">{{totalSum}}</span>
+                    </div>
+
+                    {{#if message}}
+                        <div class="alert alert-error mb-4 shadow-lg">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span>{{message}}</span>
+                            </div>
+                        </div>
+                    {{/if}}
+
+                    <form action="/order" method="POST">
+                        {{#if canOrder}}
+                            <button type="submit" class="btn btn-block bg-[#C23616] text-white hover:bg-[#a02b11] border-none rounded-xl
+                            py-3 text-lg font-bold shadow-lg shadow-red-900/20 transition-all">
+                                Jetzt bestellen
+                            </button>
+                            {{else}}
+                            <button type="button" class="btn btn-block btn-outline border-gray-600 text-gray-400
+                                       hover:text-white rounded-xl">
+                                Jetzt bestellen
+                            </button>
+                        {{/if}}
+
+                    </form>
+                </div>
+            </div>
+
+    </div>
+</div>

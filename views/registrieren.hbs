@@ -1,0 +1,73 @@
+<div class="flex justify-center">
+    <form class="m-4 flex justify-center w-1/2" action="/signup" method="post">
+        <fieldset class="fieldset bg-[#242424] rounded-box w-full p-4 flex flex-col gap-2">
+            <legend class="fieldset-legend text-lg font-bold mb-4">Registrieren</legend>
+
+            {{#if error}}
+                <div role="alert" class="alert alert-error mb-4">
+                    <span>{{error}}</span>
+                </div>
+            {{/if}}
+
+            <div class="grid grid-cols-6 gap-x-3 w-full">
+
+                <div class="col-span-3 flex flex-col items-center">
+                    <label class="label text-gray-400">Vorname</label>
+                    <input name="firstname" class="input w-full bg-[#121212]" type="text" placeholder="Vorname" required
+                            value="{{values.firstname}}"/>
+                </div>
+
+                <div class="col-span-3 flex flex-col items-center">
+                    <label class="label text-gray-400">Nachname</label>
+                    <input name="lastname" class="input w-full bg-[#121212]" type="text" placeholder="Nachname" required
+                           value="{{values.lastname}}"/>
+                </div>
+
+                <div class="col-span-full flex flex-col items-center">
+                    <label class="label text-gray-400">E-Mail</label>
+                    <input name="email" class="input w-full bg-[#121212]" type="email" placeholder="E-Mail" required
+                           value="{{values.email}}"/>
+                </div>
+
+                <div class="col-span-full flex flex-col items-center">
+                    <label class="label text-gray-400">Passwort</label>
+                    <input name="password" class="input w-full bg-[#121212]" type="password" placeholder="Passwort" required
+                            value="{{values.password}}"/>
+                </div>
+
+                <div class="col-span-full divider text-gray-400 divider-neutral">Anschrift</div>
+
+                <div class="col-span-full flex flex-col items-center">
+                    <label class="label text-gray-400">Land</label>
+                    <select name="country" class="select select-bordered w-full bg-[#121212]" required>
+                        <option value="germany">Deutschland</option> <!-- umlaute vermeiden -->
+                        <option value="austria">Österreich</option>
+                        <option value="switzerland">Schweiz</option>
+                    </select>
+                </div>
+
+                <div class="col-span-full flex flex-col items-center">
+                    <label class="label text-gray-400">Straße & Hausnummer</label>
+                    <input name="street" class="input w-full bg-[#121212]" type="text" placeholder="Straße & Hausnummer" required
+                            value="{{values.street}}"/>
+                </div>
+
+                <div class="col-span-3 flex flex-col items-center">
+                    <label class="label text-gray-400">Stadt</label>
+                    <input name="city" class="input w-full bg-[#121212]" type="text" placeholder="Stadt" required
+                            value="{{values.city}}"/>
+                </div>
+
+                <div class="col-span-3 flex flex-col items-center">
+                    <label class="label text-gray-400">Postleitzahl</label>
+                    <input name="zip" class="input w-full bg-[#121212]" type="text" placeholder="Postleitzahl" required
+                            value="{{values.zip}}"/>
+                </div>
+            </div>
+
+            <button class="btn bg-[#C23616] mt-8 w-full border-none text-white" type="submit">Registrieren</button>
+        </fieldset>
+    </form>
+
+</div>
+
